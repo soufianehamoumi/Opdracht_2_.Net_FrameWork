@@ -1,0 +1,62 @@
+﻿@model Studentenbeheer.Areas.Identity.Data.ApplicationUserViewModel
+
+
+
+
+
+@{
+    ViewData["Title"] = "Change Roles";
+}
+
+<h2>@Model.UserName: Change Roles</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Roles">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label class="control-label">UserName</label>
+                <input asp-for="UserName" class="form-control" asp-items="ViewBag.GroupId" disabled></input>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">FirstName</label>
+                <input asp-for="FirstName" class="form-control" asp-items="ViewBag.UserId" disabled></input>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">LastName</label>
+                <input asp-for="LastName" class="form-control" disabled/>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Admin</label>
+                <input type="checkbox" asp-for="@Model.Admin" />
+                <span asp-validation-for="Admin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Student</label>
+                <input type="checkbox" asp-for="@Model.Student" />
+                <span asp-validation-for="Student" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Docent</label>
+                <input type="checkbox" asp-for="@Model.Docent"/>
+                <span asp-validation-for="Docent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

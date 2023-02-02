@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Studentenbeheer.Models.Student>
+
+@{
+    ViewData["Title"] = "Beheer studenten";
+}
+
+<h1>Beheer studenten</h1>
+
+<p>
+    <a asp-action="Create">Student toevoegen</a>
+</p>
+<p>
+    <form asp-action="Index" asp-controller="Students" method="get">
+        Selecteer:  
+        <input type="text" name="naam" /><br/>
+        Geslacht: <br />
+       <input type="radio" id="M" name="gender" value="M">
+       <label for="M">M</label><br>
+       <input type="radio" id="F" name="gender" value="F">
+       <label for="F">F</label><br>
+       <input type="radio" id="?" name="gender" value="?">
+       <label for="?">?</label><br>
+       orderBy : <br />
+       <input type="radio" id="Achternaam" name="orderBy" value="Achternaam">
+       <label for="Achternaam">Achternaam</label><br>
+       <input type="radio" id="Voornaam" name="orderBy" value="Voornaam">
+       <label for="Voornaam">Voornaam</label><br>
+       <input type="radio" id="Geslacht" name="orderBy" value="Geslacht">
+       <label for="Geslacht">Geslacht</label><br>
+  
+       <input type="submit" value="Filter"/>
+    </form>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Voornaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Achternaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Geboortedatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voornaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Achternaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Geboortedatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenderID)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Wijzig</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Verwijder</a>
+            </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>
